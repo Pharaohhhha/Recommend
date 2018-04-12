@@ -1,0 +1,54 @@
+.left-col{
+	margin-top: 50%;
+	margin-left: 10%;
+	width: 80%;
+	background-color: #34495e;
+	-moz-box-shadow: 8px 8px 5px #888888; /* �ϵ� Firefox */
+	box-shadow: 8px 8px 5px #888888;
+	border-radius:15px;
+	-moz-border-radius:15px;
+}
+
+.left-col ul li a:link{
+	color: #fff;
+}
+
+.left-col ul li a:hover{
+	 color: #fff;
+	 background: #16a085;
+ }
+
+.left-col ul li a:visited{
+	color: #fff;
+	background: #34495e;
+}
+
+.left-col ul li a .midden{
+	margin-left: 10px
+}
+
+.left-col ul .active{
+	background-color: #1abc9c;
+}
+
+.left-col ul .li_top{
+	border-top-left-radius:15px;
+	border-top-right-radius:15px;
+	-moz-border-radius-topleft:15px;
+	-moz-border-radius-topright: 15px;
+}
+
+.left-col ul .li_bottom{
+	border-bottom-left-radius:15px;
+	border-bottom-right-radius:15px;
+	-moz-border-radius-bottomleft:15px;
+	-moz-border-radius-bottomright: 15px;
+}
+
+.left-col ul li a .left{
+	margin-left: 10px
+}
+
+.left-col ul li a .right{
+	margin-left: 30px;
+}

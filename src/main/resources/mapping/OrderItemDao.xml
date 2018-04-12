@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.OrderItemDao">
+    <resultMap id="oi" type="OrderItem">
+        <id property="orderItemId" column="o_id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="productId" column="p_id"/>
+        <result property="orderItemNum" column="oi_number"/>
+    </resultMap>
+
+    <select id="findbyOrderId" parameterType="int" resultMap="oi">
+        SELECT * FROM orderitem WHERE order_id=#{id};
+    </select>
+
+    <insert id="add" parameterType="OrderItem">
+        INSERT INTO orderitem(order_id, p_id, oi_number) VALUES(#{orderId}, #{productId}, #{orderItemNum});
+    </insert>
+
+    <insert id="addList" parameterType="OrderItem">
+        INSERT INTO orderitem(order_id, p_id, oi_number) VALUES
+        <foreach collection="list" index="index" item="oi" separator=",">
+            (#{oi.orderId}, #{oi.productId}, #{oi.orderItemNum})
+        </foreach>
+    </insert>
+
+    <select id="getCountbyOrders" parameterType="Orders" resultType="int">
+        SELECT COUNT(*) FROM orderitem WHERE order_id IN (
+        <foreach collection="list" index="index" item="orders" separator=",">
+            #{orders.ordersId}
+        </foreach>
+        )
+    </select>
+
+    <select id="findbyOrders" parameterType="Orders" resultMap="oi">
+        SELECT * FROM orderitem WHERE order_id IN (
+        <foreach collection="list" index="index" item="orders" separator=",">
+            #{orders.ordersId}
+        </foreach>
+        ) LIMIT #{offSet} , #{pageSize};
+    </select>
+
+    <delete id="del" parameterType="OrderItem">
+        DELETE FROM orderitem WHERE o_id=#{orderItemId};
+    </delete>
+
+    <delete id="delbyOrderId" parameterType="int">
+        DELETE FROM orderitem WHERE order_id=#{id};
+    </delete>
+
+    <select id="findAll" resultMap="oi">
+        SELECT * FROM orderitem;
+    </select>
+
+    <select id="list" resultMap="oi">
+        SELECT * FROM orderitem LIMIT #{offSet} , #{pageSize};
+    </select>
+
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(*) FROM orderitem;
+    </select>
+
+    <select id="getTopNProduce" resultType="int">
+        select p_id from orderitem group by p_id order by SUM(oi_number) desc limit 0, #{num};
+    </select>
+
+    <select id="getCatagoryCount" resultType="CatagoryCount">
+        select c.c_name as name, SUM(o.oi_number) as number from orderitem o left join product p on o.p_id=p.p_id join catagory c on p.c_id=c.c_id group by c_name;
+    </select>
+</mapper>
