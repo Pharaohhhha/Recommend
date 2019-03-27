@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="shixunCRM:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="shixunCRM.war">
+      <element id="artifact" artifact-name="shixunCRM:war exploded" />
+    </root>
+  </artifact>
+</component>
